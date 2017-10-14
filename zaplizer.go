@@ -56,6 +56,7 @@ func InitLogger(mode LogMode, level LogLevel) (*zap.Logger, error) {
 	switch mode {
 	case DEVELOPMENT:
 		config = zap.NewDevelopmentConfig()
+		config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	case PRODUCTION:
 		config = zap.NewProductionConfig()
 	}
@@ -75,6 +76,5 @@ func InitLogger(mode LogMode, level LogLevel) (*zap.Logger, error) {
 	case FATAL:
 		config.Level.SetLevel(zap.FatalLevel)
 	}
-	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	return config.Build()
 }
